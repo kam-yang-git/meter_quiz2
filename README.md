@@ -28,6 +28,8 @@ cursor_meter_quiz/
 │   └── style.css      # スタイルシート
 ├── js/
 │   └── quiz.js        # クイズのロジック
+├── json/
+│   └── data.json      # データ
 ├── quiz.html          # メインのHTMLファイル
 └── README.md          # このファイル
 ```
