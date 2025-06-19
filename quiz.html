@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メーター読み取りクイズ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>メーター読み取りクイズ</h1>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div id="result-container" style="display: none;">
+            <!-- 結果がここに表示されます -->
+        </div>
+        <div id="action-buttons" class="text-center mb-4" style="display: none;">
+            <button id="retry" class="btn btn-success me-2">再挑戦</button>
+            <button id="finish" class="btn btn-danger">終了</button>
+        </div>
+        <div id="quiz-container">
+            <!-- クイズの問題がここに動的に挿入されます -->
+        </div>
+        <div class="text-center mb-4">
+            <button id="check-answers" class="btn btn-primary">採点</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/quiz.js"></script>
+</body>
+</html> 

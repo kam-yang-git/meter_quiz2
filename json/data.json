@@ -1,0 +1,159 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "meterImage": "image/image_a.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "kWh/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "kWh",
+      "serialNumber": "111111111",
+      "inspectionYear": "2025",
+      "inspectionMonth": "1",
+      "displayValue": "11111.1",
+      "explanationImage": "image/image_b.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ],
+      "guideline": {
+        "multiplier": "半角数字のみ入力してください。無い場合は1を入力してください。",
+        "pulseUnit": "半角数字のみ入力してください。",
+        "integerDigits": "半角数字のみ入力してください。",
+        "decimalDigits": "半角数字のみ入力してください。",
+        "displayUnit": "半角英数字のみ入力してください。",
+        "serialNumber": "半角英数字のみ入力してください。'No.'やスペースは入力不要です。",
+        "inspectionYear": "半角英数字のみ入力してください。平成は'H'、昭和は'S'を付けてください。",
+        "inspectionMonth": "半角数字のみ入力してください。",
+        "displayValue": "半角数字のみ入力してください。"
+      }
+    },
+    {
+      "id": 2,
+      "meterImage": "image/image_a.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "kWh/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "kWh",
+      "serialNumber": "222222222",
+      "inspectionYear": "2025",
+      "inspectionMonth": "2",
+      "displayValue": "22222.2",
+      "explanationImage": "image/image_b.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ],
+      "guideline": {
+        "multiplier": "半角数字のみ入力してください。無い場合は1を入力してください。",
+        "pulseUnit": "半角数字のみ入力してください。",
+        "integerDigits": "半角数字のみ入力してください。",
+        "decimalDigits": "半角数字のみ入力してください。",
+        "displayUnit": "半角英数字のみ入力してください。",
+        "serialNumber": "半角英数字のみ入力してください。'No.'やスペースは入力不要です。",
+        "inspectionYear": "半角英数字のみ入力してください。平成は'H'、昭和は'S'を付けてください。",
+        "inspectionMonth": "半角数字のみ入力してください。",
+        "displayValue": "半角数字のみ入力してください。"
+      }
+    },
+    {
+      "id": 3,
+      "meterImage": "image/image_a.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "kWh/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "kWh",
+      "serialNumber": "333333333",
+      "inspectionYear": "2025",
+      "inspectionMonth": "3",
+      "displayValue": "33333.3",
+      "explanationImage": "image/image_b.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ],
+      "guideline": {
+        "multiplier": "半角数字のみ入力してください。無い場合は1を入力してください。",
+        "pulseUnit": "半角数字のみ入力してください。",
+        "integerDigits": "半角数字のみ入力してください。",
+        "decimalDigits": "半角数字のみ入力してください。",
+        "displayUnit": "半角英数字のみ入力してください。",
+        "serialNumber": "半角英数字のみ入力してください。'No.'やスペースは入力不要です。",
+        "inspectionYear": "半角英数字のみ入力してください。平成は'H'、昭和は'S'を付けてください。",
+        "inspectionMonth": "半角数字のみ入力してください。",
+        "displayValue": "半角数字のみ入力してください。"
+      }
+    },
+    {
+      "id": 4,
+      "meterImage": "image/image_a.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "kWh/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "kWh",
+      "serialNumber": "444444444",
+      "inspectionYear": "2025",
+      "inspectionMonth": "4",
+      "displayValue": "44444.4",
+      "explanationImage": "image/image_b.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ],
+      "guideline": {
+        "multiplier": "半角数字のみ入力してください。無い場合は1を入力してください。",
+        "pulseUnit": "半角数字のみ入力してください。",
+        "integerDigits": "半角数字のみ入力してください。",
+        "decimalDigits": "半角数字のみ入力してください。",
+        "displayUnit": "半角英数字のみ入力してください。",
+        "serialNumber": "半角英数字のみ入力してください。'No.'やスペースは入力不要です。",
+        "inspectionYear": "半角英数字のみ入力してください。平成は'H'、昭和は'S'を付けてください。",
+        "inspectionMonth": "半角数字のみ入力してください。",
+        "displayValue": "半角数字のみ入力してください。"
+      }
+    },
+    {
+      "id": 5,
+      "meterImage": "image/image_a.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "kWh/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "kWh",
+      "serialNumber": "555555555",
+      "inspectionYear": "2025",
+      "inspectionMonth": "5",
+      "displayValue": "55555.5",
+      "explanationImage": "image/image_b.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ],
+      "guideline": {
+        "multiplier": "半角数字のみ入力してください。無い場合は1を入力してください。",
+        "pulseUnit": "半角数字のみ入力してください。",
+        "integerDigits": "半角数字のみ入力してください。",
+        "decimalDigits": "半角数字のみ入力してください。",
+        "displayUnit": "半角英数字のみ入力してください。",
+        "serialNumber": "半角英数字のみ入力してください。'No.'やスペースは入力不要です。",
+        "inspectionYear": "半角英数字のみ入力してください。平成は'H'、昭和は'S'を付けてください。",
+        "inspectionMonth": "半角数字のみ入力してください。",
+        "displayValue": "半角数字のみ入力してください。"
+      }
+    }
+  ]
+} 

@@ -1,0 +1,22 @@
+# 画像フォルダを除外
+/image/
+/image/*
+
+# 一般的な画像ファイル形式を除外
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.svg
+*.webp
+
+# OSが生成するファイル
+.DS_Store
+Thumbs.db
+
+# エディタの設定ファイル
+.vscode/
+.idea/
+*.swp
+*.swo 

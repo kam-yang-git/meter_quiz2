@@ -1,0 +1,36 @@
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.question-container {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.meter-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.explanation-image {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+
+body {
+    padding-top: 56px; /* Add padding to prevent content from being hidden under navbar */
+}
+
+.navbar-brand h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: white;
+} 
