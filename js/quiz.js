@@ -2,6 +2,19 @@ let questions = [];
 let selectedQuestions = [];
 let userAnswers = [];
 
+// 入力ガイドライン（全問題共通）
+const GUIDELINE = {
+    multiplier: "半角数字のみ入力してください。\n無い場合は1を入力してください。",
+    pulseUnit: "半角数字のみ入力してください。",
+    integerDigits: "半角数字のみ入力してください。",
+    decimalDigits: "半角数字のみ入力してください。",
+    displayUnit: "半角英数字のみ入力してください。",
+    serialNumber: "半角英数字のみ入力してください。\n'No.'やスペースは入力不要です。\n不明な場合は'-'を入力してください。",
+    inspectionYear: "半角英数字のみ入力してください。\n平成は'H'、昭和は'S'を付けてください。\n不明な場合は'99'を入力してください。",
+    inspectionMonth: "半角数字のみ入力してください。\n不明な場合は'99'を入力してください。",
+    displayValue: "半角数字のみ入力してください。"
+};
+
 // データの読み込み
 async function loadQuestions() {
     try {
@@ -60,66 +73,66 @@ function displayQuestions() {
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">乗率: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.multiplier}</small>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.multiplier}</small>
                             <div class="input-group">
                                 <span class="input-group-text">x</span>
-                                <input type="text" class="form-control" name="multiplier_${index}" required>
+                                <input type="text" class="form-control" name="multiplier_${index}" required inputmode="decimal" pattern="[0-9]+(\\.[0-9]+)?">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">パルス単位: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.pulseUnit}</small>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.pulseUnit}</small>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="pulseUnit_${index}" required>
+                                <input type="text" class="form-control" name="pulseUnit_${index}" required inputmode="decimal" pattern="[0-9]+(\\.[0-9]+)?">
                                 <span class="input-group-text">${question.pulseUnitDisplay}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">整数部桁数: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.integerDigits}</small>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.integerDigits}</small>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="integerDigits_${index}" required>
+                                <input type="text" class="form-control" name="integerDigits_${index}" required inputmode="numeric" pattern="[0-9]+">
                                 <span class="input-group-text">桁</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">小数部桁数: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.decimalDigits}</small>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.decimalDigits}</small>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="decimalDigits_${index}" required>
+                                <input type="text" class="form-control" name="decimalDigits_${index}" required inputmode="numeric" pattern="[0-9]+">
                                 <span class="input-group-text">桁</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">表示単位: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.displayUnit}</small>
-                            <input type="text" class="form-control" name="displayUnit_${index}" required>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.displayUnit}</small>
+                            <input type="text" class="form-control" name="displayUnit_${index}" required inputmode="latin" pattern="[A-Za-z0-9]+">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">製造番号: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.serialNumber}</small>
-                            <input type="text" class="form-control" name="serialNumber_${index}" required>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.serialNumber}</small>
+                            <input type="text" class="form-control" name="serialNumber_${index}" required inputmode="latin" pattern="[A-Za-z0-9\-]+">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">検定期限: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.inspectionYear}</small>
+                            <label class="form-label">検定期限（年）: </label>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.inspectionYear}</small>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="year_${index}" required>
+                                <input type="text" class="form-control" name="year_${index}" required inputmode="latin" pattern="[A-Za-z0-9]+">
                                 <span class="input-group-text">年</span>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">検定期限: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.inspectionMonth}</small>
+                            <label class="form-label">検定期限（月）: </label>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.inspectionMonth}</small>
                             <div class="input-group">
-                            <input type="text" class="form-control" name="month_${index}" required>
+                                <input type="text" class="form-control" name="month_${index}" required inputmode="numeric" pattern="[0-9]+">
                                 <span class="input-group-text">月</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">指針値: </label>
-                            <small class="form-text text-muted d-block mb-2">${question.guideline.displayValue}</small>
-                            <input type="text" class="form-control" name="displayValue_${index}" required>
+                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.displayValue}</small>
+                            <input type="text" class="form-control" name="displayValue_${index}" required inputmode="decimal" pattern="[0-9]+(\\.[0-9]+)?">
                         </div>
                     </div>
                 </div>
@@ -214,8 +227,8 @@ function checkAnswers() {
                 { label: '小数部桁数', value: `${userAnswer.decimalDigits} 桁`, correct: userAnswer.decimalDigits === question.decimalDigits },
                 { label: '表示単位', value: userAnswer.displayUnit, correct: userAnswer.displayUnit === question.displayUnit },
                 { label: '製造番号', value: userAnswer.serialNumber, correct: userAnswer.serialNumber === question.serialNumber },
-                { label: '検定期限', value: `${userAnswer.year} 年`, correct: userAnswer.year === question.inspectionYear },
-                { label: '検定期限', value: `${userAnswer.month} 月`, correct: userAnswer.month === question.inspectionMonth },
+                { label: '検定期限（年）', value: `${userAnswer.year} 年`, correct: userAnswer.year === question.inspectionYear },
+                { label: '検定期限（月）', value: `${userAnswer.month} 月`, correct: userAnswer.month === question.inspectionMonth },
                 { label: '指針値', value: userAnswer.displayValue, correct: userAnswer.displayValue === question.displayValue },
             ];
             items.forEach(item => {
@@ -245,8 +258,8 @@ function checkAnswers() {
                 { label: '小数部桁数', value: `${question.decimalDigits} 桁` },
                 { label: '表示単位', value: question.displayUnit },
                 { label: '製造番号', value: question.serialNumber },
-                { label: '検定期限', value: `${question.inspectionYear} 年` },
-                { label: '検定期限', value: `${question.inspectionMonth} 月` },
+                { label: '検定期限（年）', value: `${question.inspectionYear} 年` },
+                { label: '検定期限（月）', value: `${question.inspectionMonth} 月` },
                 { label: '指針値', value: question.displayValue },
             ];
             answerItems.forEach(item => {
