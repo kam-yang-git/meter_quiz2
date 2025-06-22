@@ -24,8 +24,11 @@
 cursor_meter_quiz/
 ├── css/
 │   └── style.css      # スタイルシート
+├── image/             # 画像フォルダ
 ├── js/
 │   └── quiz.js        # クイズのロジック
+├── json/
+│   └── data.json      # 問題、解説用
 ├── quiz.html          # メインのHTMLファイル
 └── README.md          # このファイル
 ```
