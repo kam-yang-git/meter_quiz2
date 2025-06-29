@@ -16,6 +16,9 @@
 /image/*.svg
 /image/*.webp
 
+# .gitkeepは除外しない（フォルダ構造を保持するため）
+!.gitkeep
+
 # OSが生成するファイル
 .DS_Store
 Thumbs.db
