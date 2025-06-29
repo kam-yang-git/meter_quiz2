@@ -1,8 +1,4 @@
-# 画像フォルダを除外
-/image/
-/image/*
-
-# 一般的な画像ファイル形式を除外
+# 画像ファイル形式を除外（フォルダは残す）
 *.jpg
 *.jpeg
 *.png
@@ -10,6 +6,15 @@
 *.bmp
 *.svg
 *.webp
+
+# imageフォルダ内の画像ファイルを除外
+/image/*.jpg
+/image/*.jpeg
+/image/*.png
+/image/*.gif
+/image/*.bmp
+/image/*.svg
+/image/*.webp
 
 # OSが生成するファイル
 .DS_Store
