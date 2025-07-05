@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "meterImage": "image/gas1.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "m3/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "m3",
+      "serialNumber": "111111111",
+      "inspectionYear": "2025",
+      "inspectionMonth": "1",
+      "displayValue": "11111.1",
+      "explanationImage": "image/gas1a.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ]
+    },
+    {
+      "id": 2,
+      "meterImage": "image/gas2.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "m3/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "m3",
+      "serialNumber": "222222222",
+      "inspectionYear": "2025",
+      "inspectionMonth": "2",
+      "displayValue": "22222.2",
+      "explanationImage": "image/gas2a.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ]
+    },
+    {
+      "id": 3,
+      "meterImage": "image/gas3.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "m3/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "m3",
+      "serialNumber": "333333333",
+      "inspectionYear": "2025",
+      "inspectionMonth": "3",
+      "displayValue": "33333.3",
+      "explanationImage": "image/gas3a.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ]
+    },
+    {
+      "id": 4,
+      "meterImage": "image/gas1.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "L/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "L",
+      "serialNumber": "444444444",
+      "inspectionYear": "2025",
+      "inspectionMonth": "4",
+      "displayValue": "44444.4",
+      "explanationImage": "image/gas1a.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ]
+    },
+    {
+      "id": 5,
+      "meterImage": "image/gas2.jpg",
+      "multiplier": "1",
+      "pulseUnit": "1",
+      "pulseUnitDisplay": "L/Pulse",
+      "integerDigits": "5",
+      "decimalDigits": "1",
+      "displayUnit": "L",
+      "serialNumber": "555555555",
+      "inspectionYear": "2025",
+      "inspectionMonth": "5",
+      "displayValue": "55555.5",
+      "explanationImage": "image/gas2a.jpg",
+      "explanationText": [
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。",
+        "ここに解説文が入ります。"
+      ]
+    }
+  ]
+} 

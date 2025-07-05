@@ -18,148 +18,190 @@ const GUIDELINE = {
 // データの読み込み
 async function loadQuestions() {
     try {
-        const response = await fetch('json/data.json');
-        const data = await response.json();
-        questions = data.questions;
+        const [electricityRes, waterRes, gasRes] = await Promise.all([
+            fetch('json/electricity.json'),
+            fetch('json/water.json'),
+            fetch('json/gas.json')
+        ]);
+        const [electricityData, waterData, gasData] = await Promise.all([
+            electricityRes.json(),
+            waterRes.json(),
+            gasRes.json()
+        ]);
+        
+        function getRandomQuestion(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        selectedQuestions = [
+            getRandomQuestion(electricityData.questions),
+            getRandomQuestion(waterData.questions),
+            getRandomQuestion(gasData.questions)
+        ];
+        userAnswers = [];
         startQuiz();
     } catch (error) {
         console.error('Error loading questions:', error);
     }
 }
 
-// ランダムに3問を選択
-function selectRandomQuestions() {
-    const shuffled = [...questions].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 3);
-}
-
 // クイズの開始
 function startQuiz() {
-    // ページ最上部にスクロール（即時実行）
     window.scrollTo({ top: 0, behavior: 'instant' });
     
-    // 少し遅延させてから問題を表示
     setTimeout(() => {
-        selectedQuestions = selectRandomQuestions();
-        userAnswers = [];
         displayQuestions();
         
-        // 問題と採点ボタンを表示
         document.getElementById('quiz-container').style.display = 'block';
         document.getElementById('check-answers').style.display = 'inline-block';
         
-        // 結果とアクションボタンを非表示
         document.getElementById('result-container').style.display = 'none';
         document.getElementById('action-buttons').style.display = 'none';
     }, 100);
 }
 
-// 問題の表示
+// 問題の表示 (XSS対策済み)
 function displayQuestions() {
     const container = document.getElementById('quiz-container');
-    container.innerHTML = '';
+    container.innerHTML = ''; // 既存の内容をクリア
 
     selectedQuestions.forEach((question, index) => {
         const questionDiv = document.createElement('div');
         questionDiv.className = 'question-container';
-        questionDiv.innerHTML = `
-            <h3>問題 ${index + 1}</h3>
-            <p>次のメーターの仕様を答えなさい。</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="${question.meterImage}" alt="メーター画像" class="meter-image">
-                </div>
-                <div class="col-md-6">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">乗率: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.multiplier}</small>
-                            <div class="input-group">
-                                <span class="input-group-text">x</span>
-                                <input type="text" class="form-control" name="multiplier_${index}" required inputmode="decimal" pattern="[0-9]+(\\.[0-9]+)?">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">パルス単位: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.pulseUnit}</small>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="pulseUnit_${index}" required inputmode="decimal" pattern="[0-9]+(\\.[0-9]+)?">
-                                <span class="input-group-text">${question.pulseUnitDisplay}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">整数部桁数: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.integerDigits}</small>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="integerDigits_${index}" required inputmode="numeric" pattern="[0-9]+">
-                                <span class="input-group-text">桁</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">小数部桁数: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.decimalDigits}</small>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="decimalDigits_${index}" required inputmode="numeric" pattern="[0-9]+">
-                                <span class="input-group-text">桁</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">表示単位: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.displayUnit}</small>
-                            <input type="text" class="form-control" name="displayUnit_${index}" required inputmode="latin" pattern="[A-Za-z0-9]+">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">製造番号: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.serialNumber}</small>
-                            <input type="text" class="form-control" name="serialNumber_${index}" required inputmode="latin" pattern="[A-Za-z0-9\-]+">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">検定期限（年）: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.inspectionYear}</small>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="year_${index}" required inputmode="latin" pattern="[A-Za-z0-9]+">
-                                <span class="input-group-text">年</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">検定期限（月）: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.inspectionMonth}</small>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="month_${index}" required inputmode="numeric" pattern="[0-9]+">
-                                <span class="input-group-text">月</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">指針値: </label>
-                            <small class="form-text text-muted d-block mb-2" style="white-space: pre-line;">${GUIDELINE.displayValue}</small>
-                            <input type="text" class="form-control" name="displayValue_${index}" required inputmode="decimal" pattern="[0-9]+(\\.[0-9]+)?">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+
+        const h3 = document.createElement('h3');
+        h3.textContent = `問題 ${index + 1}`;
+        questionDiv.appendChild(h3);
+
+        const p = document.createElement('p');
+        p.textContent = '次のメーターの仕様を答えなさい。';
+        questionDiv.appendChild(p);
+
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
+        questionDiv.appendChild(rowDiv);
+
+        const imgCol = document.createElement('div');
+        imgCol.className = 'col-md-6';
+        rowDiv.appendChild(imgCol);
+
+        const meterImage = document.createElement('img');
+        // setAttributeを使い、`src`に安全な値のみをセット
+        meterImage.setAttribute('src', question.meterImage); 
+        meterImage.alt = 'メーター画像';
+        meterImage.className = 'meter-image';
+        imgCol.appendChild(meterImage);
+
+        const formCol = document.createElement('div');
+        formCol.className = 'col-md-6';
+        rowDiv.appendChild(formCol);
+
+        const formRow = document.createElement('div');
+        formRow.className = 'row g-3';
+        formCol.appendChild(formRow);
+
+        // 各入力フィールドの生成を関数化してコードの重複を減らす
+        const createInputField = (label, name, guidelineText, inputType, pattern, unit = '') => {
+            const col = document.createElement('div');
+            col.className = 'col-md-6';
+
+            const labelElem = document.createElement('label');
+            labelElem.className = 'form-label';
+            labelElem.textContent = `${label}: `;
+            col.appendChild(labelElem);
+
+            const small = document.createElement('small');
+            small.className = 'form-text text-muted d-block mb-2';
+            small.style.whiteSpace = 'pre-line';
+            small.textContent = guidelineText; // textContentで安全に挿入
+            col.appendChild(small);
+
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group';
+            col.appendChild(inputGroup);
+
+            if (name.includes('multiplier')) { // 乗率の 'x' プレフィックス
+                const span = document.createElement('span');
+                span.className = 'input-group-text';
+                span.textContent = 'x'; // textContentで安全に挿入
+                inputGroup.appendChild(span);
+            }
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control';
+            input.name = `${name}_${index}`;
+            input.required = true;
+            input.inputMode = inputType;
+            if (pattern) {
+                input.pattern = pattern;
+            }
+            inputGroup.appendChild(input);
+
+            if (unit) { // 単位がある場合
+                const span = document.createElement('span');
+                span.className = 'input-group-text';
+                span.textContent = unit; // textContentで安全に挿入
+                inputGroup.appendChild(span);
+            }
+            formRow.appendChild(col);
+        };
+
+        createInputField('乗率', 'multiplier', GUIDELINE.multiplier, 'decimal', '[0-9]+(\\.[0-9]+)?');
+        // question.pulseUnitDisplay はJSONから直接読み込むため、textContentで設定
+        const pulseUnitCol = document.createElement('div');
+        pulseUnitCol.className = 'col-md-6';
+        const pulseUnitLabel = document.createElement('label');
+        pulseUnitLabel.className = 'form-label';
+        pulseUnitLabel.textContent = 'パルス単位: ';
+        pulseUnitCol.appendChild(pulseUnitLabel);
+        const pulseUnitSmall = document.createElement('small');
+        pulseUnitSmall.className = 'form-text text-muted d-block mb-2';
+        pulseUnitSmall.style.whiteSpace = 'pre-line';
+        pulseUnitSmall.textContent = GUIDELINE.pulseUnit;
+        pulseUnitCol.appendChild(pulseUnitSmall);
+        const pulseUnitInputGroup = document.createElement('div');
+        pulseUnitInputGroup.className = 'input-group';
+        const pulseUnitInput = document.createElement('input');
+        pulseUnitInput.type = 'text';
+        pulseUnitInput.className = 'form-control';
+        pulseUnitInput.name = `pulseUnit_${index}`;
+        pulseUnitInput.required = true;
+        pulseUnitInput.inputMode = 'decimal';
+        pulseUnitInput.pattern = '[0-9]+(\\.[0-9]+)?';
+        pulseUnitInputGroup.appendChild(pulseUnitInput);
+        const pulseUnitSpan = document.createElement('span');
+        pulseUnitSpan.className = 'input-group-text';
+        pulseUnitSpan.textContent = question.pulseUnitDisplay; // ここをtextContentで設定
+        pulseUnitInputGroup.appendChild(pulseUnitSpan);
+        pulseUnitCol.appendChild(pulseUnitInputGroup);
+        formRow.appendChild(pulseUnitCol);
+
+        createInputField('整数部桁数', 'integerDigits', GUIDELINE.integerDigits, 'numeric', '[0-9]+', '桁');
+        createInputField('小数部桁数', 'decimalDigits', GUIDELINE.decimalDigits, 'numeric', '[0-9]+', '桁');
+        createInputField('表示単位', 'displayUnit', GUIDELINE.displayUnit, 'latin', '[A-Za-z0-9]+');
+        createInputField('製造番号', 'serialNumber', GUIDELINE.serialNumber, 'latin', '[A-Za-z0-9\\-]+');
+        createInputField('検定期限（年）', 'year', GUIDELINE.inspectionYear, 'latin', '[A-Za-z0-9]+', '年');
+        createInputField('検定期限（月）', 'month', GUIDELINE.inspectionMonth, 'numeric', '[0-9]+', '月');
+        createInputField('指針値', 'displayValue', GUIDELINE.displayValue, 'decimal', '[0-9]+(\\.[0-9]+)?');
+        
         container.appendChild(questionDiv);
     });
 
-    // Initialize tooltips
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 }
 
-// 回答の採点
+// 回答の採点（ここは元々textContentを使用しているためXSS対策不要）
 function checkAnswers() {
-    // ページ最上部にスクロール（即時実行）
     window.scrollTo({ top: 0, behavior: 'instant' });
     
-    // 少し遅延させてから結果を表示
     setTimeout(() => {
         const resultContainer = document.getElementById('result-container');
         resultContainer.innerHTML = '';
         let totalScore = 0;
 
-        // 総合スコアの表示
         const scoreDiv = document.createElement('div');
         scoreDiv.className = 'alert alert-info text-center';
         scoreDiv.textContent = `総合スコア: 0点 / 27点`;
@@ -182,12 +224,10 @@ function checkAnswers() {
             const resultDiv = document.createElement('div');
             resultDiv.className = 'question-container';
 
-            // 問題タイトル
             const h3 = document.createElement('h3');
             h3.textContent = `問題 ${index + 1}`;
             resultDiv.appendChild(h3);
 
-            // 問題説明
             const p = document.createElement('p');
             p.textContent = '次のメーターの仕様を答えなさい。';
             resultDiv.appendChild(p);
@@ -195,7 +235,6 @@ function checkAnswers() {
             const rowDiv = document.createElement('div');
             rowDiv.className = 'row';
 
-            // 画像
             const imgCol = document.createElement('div');
             imgCol.className = 'col-md-6';
             const img = document.createElement('img');
@@ -205,13 +244,11 @@ function checkAnswers() {
             imgCol.appendChild(img);
             rowDiv.appendChild(imgCol);
 
-            // 回答・正解・解説
             const infoCol = document.createElement('div');
             infoCol.className = 'col-md-6';
             const infoRow = document.createElement('div');
             infoRow.className = 'row g-3';
 
-            // 入力内容
             const inputCol = document.createElement('div');
             inputCol.className = 'col-6';
             const inputTitle = document.createElement('h4');
@@ -219,7 +256,6 @@ function checkAnswers() {
             inputCol.appendChild(inputTitle);
             const ulInput = document.createElement('ul');
             ulInput.className = 'list-unstyled';
-            // 各項目
             const items = [
                 { label: '乗率', value: `x ${userAnswer.multiplier}`, correct: userAnswer.multiplier === question.multiplier },
                 { label: 'パルス単位', value: `${userAnswer.pulseUnit} ${question.pulseUnitDisplay}`, correct: userAnswer.pulseUnit === question.pulseUnit },
@@ -236,14 +272,13 @@ function checkAnswers() {
                 li.textContent = `${item.label}: `;
                 const span = document.createElement('span');
                 span.className = item.correct ? 'correct' : 'incorrect';
-                span.textContent = item.value;
+                span.textContent = item.value; // textContentで安全に挿入
                 li.appendChild(span);
                 ulInput.appendChild(li);
             });
             inputCol.appendChild(ulInput);
             infoRow.appendChild(inputCol);
 
-            // 正解
             const answerCol = document.createElement('div');
             answerCol.className = 'col-6';
             const answerTitle = document.createElement('h4');
@@ -264,13 +299,12 @@ function checkAnswers() {
             ];
             answerItems.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = `${item.label}: ${item.value}`;
+                li.textContent = `${item.label}: ${item.value}`; // textContentで安全に挿入
                 ulAnswer.appendChild(li);
             });
             answerCol.appendChild(ulAnswer);
             infoRow.appendChild(answerCol);
 
-            // 解説
             const hr = document.createElement('hr');
             infoCol.appendChild(infoRow);
             infoCol.appendChild(hr);
@@ -286,7 +320,7 @@ function checkAnswers() {
             question.explanationText.forEach(text => {
                 const p = document.createElement('p');
                 p.className = 'mb-2';
-                p.textContent = text;
+                p.textContent = text; // textContentで安全に挿入
                 explanationTextDiv.appendChild(p);
             });
             explanationCol.appendChild(explanationTextDiv);
@@ -296,7 +330,6 @@ function checkAnswers() {
             rowDiv.appendChild(infoCol);
             resultDiv.appendChild(rowDiv);
 
-            // スコアの計算（各項目1点、合計27点）
             if (userAnswer.multiplier === question.multiplier) questionScore += 1;
             if (userAnswer.pulseUnit === question.pulseUnit) questionScore += 1;
             if (userAnswer.integerDigits === question.integerDigits) questionScore += 1;
@@ -311,14 +344,11 @@ function checkAnswers() {
             resultContainer.appendChild(resultDiv);
         });
 
-        // スコアの更新
         scoreDiv.textContent = `総合スコア: ${totalScore}点 / 27点`;
 
-        // 問題と採点ボタンを非表示
         document.getElementById('quiz-container').style.display = 'none';
         document.getElementById('check-answers').style.display = 'none';
         
-        // 結果とアクションボタンを表示
         document.getElementById('result-container').style.display = 'block';
         document.getElementById('action-buttons').style.display = 'block';
     }, 100);
@@ -328,8 +358,8 @@ function checkAnswers() {
 document.addEventListener('DOMContentLoaded', () => {
     loadQuestions();
     document.getElementById('check-answers').addEventListener('click', checkAnswers);
-    document.getElementById('retry').addEventListener('click', startQuiz);
+    document.getElementById('retry').addEventListener('click', loadQuestions);
     document.getElementById('finish').addEventListener('click', () => {
         window.location.href = 'https://www.google.com';
     });
-}); 
+});

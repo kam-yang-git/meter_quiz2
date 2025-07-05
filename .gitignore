@@ -27,4 +27,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-*.swo 
+*.swo
+
+# quiz_old.jsを無視するように追加する
+quiz_old.js 
